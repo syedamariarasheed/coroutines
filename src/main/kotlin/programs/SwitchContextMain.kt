@@ -8,7 +8,7 @@ import kotlin.system.measureTimeMillis
 
 suspend fun main() {
     val time = measureTimeMillis {
-        // coroutineScope works same as runBlocking here
+        // coroutineScope works same as runBlocking here it will not terminate the program before finishing the execution of the coroutineScope
         coroutineScope {
             // get data
             println("calling get remote data")
@@ -27,10 +27,9 @@ suspend fun main() {
 
 /*
 * withContext works with suspend to await of the execution code written within this block */
-suspend fun getRemoteData() =
-    withContext(Dispatchers.IO) {
-        // Blocking network request code
-        delay(2000)
-        println("coroutine get remote data")
-        true
-    }
+suspend fun getRemoteData() = withContext(Dispatchers.IO) {
+    // Blocking network request code
+    delay(2000)
+    println("coroutine get remote data")
+    true
+}
