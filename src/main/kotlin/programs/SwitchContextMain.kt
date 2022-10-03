@@ -3,8 +3,15 @@ package programs
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
-/* Coroutine switching context with context
-* it runs on main thread and switch context of IO while getting remote data  */
+/**
+ Coroutine switching context withContext -> launch and async create new coroutines. withContext does not create a new coroutine, it only shifts the context of the existing coroutine, which is why it's a suspend function (unlike launch and async).
+it runs on main thread and switch context of IO while getting remote data
+
+- Following Dispatchers you can put in withContext according to you following operation
+
+Dispatchers.Main - Use this dispatcher to run a coroutine on the main Android thread. This should be used only for interacting with the UI and performing quick work. Examples include calling suspend functions, running Android UI framework operations, and updating LiveData objects.
+Dispatchers.IO - This dispatcher is optimized to perform disk or network I/O outside of the main thread. Examples include using the Room component, reading from or writing to files, and running any network operations.
+Dispatchers.Default - This dispatcher is optimized to perform CPU-intensive work outside of the main thread. Example use cases include sorting a list and parsing JSON. **/
 
 suspend fun main() {
     val time = measureTimeMillis {
@@ -25,8 +32,7 @@ suspend fun main() {
     println("time = $time")
 }
 
-/*
-* withContext works with suspend to await of the execution code written within this block */
+
 suspend fun getRemoteData() = withContext(Dispatchers.IO) {
     // Blocking network request code
     delay(2000)
