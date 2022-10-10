@@ -14,6 +14,7 @@ Dispatchers.IO - This dispatcher is optimized to perform disk or network I/O out
 Dispatchers.Default - This dispatcher is optimized to perform CPU-intensive work outside of the main thread. Example use cases include sorting a list and parsing JSON. **/
 
 suspend fun main() {
+
     val time = measureTimeMillis {
         // coroutineScope works same as runBlocking here it will not terminate the program before finishing the execution of the coroutineScope
         coroutineScope {
